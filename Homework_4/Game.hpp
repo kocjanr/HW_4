@@ -27,7 +27,7 @@ public:
     void searchForAvilableChildNodes(Node node);
     void startGame();
     bool checkIfNodeIsVisited(Node node);
-    void movePeg(Node node);
+    void movePeg(Node firstNode, Node secondNode);
     
 private:
     

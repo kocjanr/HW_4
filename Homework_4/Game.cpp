@@ -23,9 +23,9 @@ Game::Game(){
 
 void Game::populateBoard(){
     
-//    for (int i =0 ; i < 5; i++) {
-//        for (int j = 4; 4 < 0; j--) {
-//            //fill in board yo
+//    for (int i = 0 ; i < 5; i++) {
+//        for (int j = 0; j < i - 1; j++) {
+//            _gameboard[i][j]._value = 1;
 //        }
 //    }
     
@@ -94,23 +94,26 @@ void Game::bfs(Node *node){
 
 void Game::searchForAvilableChildNodes(Node node){
     Node currentNode = node;
-    Node currdentNodeLeftChild;
+    
+    Node currentNodeLeftChild;
+    currentNodeLeftChild._rowCordinate = (currentNode._rowCordinate) + 1;
+    currentNodeLeftChild._columnCordinate = currentNode._columnCordinate;
+    
     Node currentNodeRightChild;
+    currentNodeRightChild._rowCordinate = currentNode._rowCordinate;
+    currentNodeRightChild._columnCordinate = (currentNodeRightChild._columnCordinate) + 1;
     
-//    int currentNodeRowCordinate = currentNode._rowCordinate;
-//    int currentNodeColumnCordinate = currentNode._columnCordinate;
+    if (checkIfNodeIsVisited(currentNodeLeftChild) == false && currentNodeLeftChild._value != -1) {
+        Node nextLeftChildNode;
+        nextLeftChildNode._rowCordinate = (currentNodeLeftChild._rowCordinate) + 1;
+        nextLeftChildNode._columnCordinate = currentNodeLeftChild._columnCordinate;
+    }
     
-    
-    int currentNodeLeftChild = (currentNode._rowCordinate) + 1;
-    int currentNodeRightChild = (currentNode._columnCordinate) + 1;
-    
-//    if (_gameBoard[currentNodeLeftChild][node._rowCordinate]._visited == false ) {
-//        if (_gameBoard[currentNodeLeftChild+1][node._rowCordinate]._visited == false) {
-//            _gameBoard[currentNode._rowCordinate][currentNode._columnCordinate]._value = 0;
-//            _gameBoard[currentNode._rowCordinate][currentNode._columnCordinate]._visited = true;
-//        }
-//    }
-    
+    else if (checkIfNodeIsVisited(currentNodeRightChild) == false && currentNodeRightChild._value != -1){
+        Node nextRightChildNode;
+        nextRightChildNode._rowCordinate = currentNodeRightChild._rowCordinate;
+        nextRightChildNode._columnCordinate = (currentNodeRightChild._columnCordinate) + 1;
+    }
 }
 
 bool Game::checkIfNodeIsVisited(Node node){
@@ -121,10 +124,15 @@ bool Game::checkIfNodeIsVisited(Node node){
         return false;
 }
 
+void Game::movePeg(Node firstNode, Node secondNode){
+    Node jumpedNode;
+
+}
+
 void Game::printBord(){
-    
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++)
+            
             std::cout << _gameBoard[i][j]._value << "." <<_gameBoard[i][j]._visited << " ";
             std::cout << std::endl;
     }
