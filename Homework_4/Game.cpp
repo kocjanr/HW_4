@@ -9,9 +9,9 @@
 #include "Game.hpp"
 
 Game::Game(){
-
     int size = 5;
-    int _pegs = 0;
+    
+    _startingNode = new Node;
 
     _gameBoard = new Node*[size];
     for (int i = 0 ; i < size ; i++) {
@@ -22,6 +22,14 @@ Game::Game(){
 }
 
 void Game::populateBoard(){
+    
+//    for (int i =0 ; i < 5; i++) {
+//        for (int j = 4; 4 < 0; j--) {
+//            //fill in board yo
+//        }
+//    }
+    
+    _gameBoard[0][0]._visited = true;
     
     _gameBoard[1][0]._value = 1;
     _gameBoard[1][1]._value = 1;
@@ -47,44 +55,70 @@ void Game::populateBoard(){
     _gameBoard[4][3]._value = -1;
     _gameBoard[4][4]._value = -1;
 
-    //this->printBord();
+    this->printBord();
 }
 
-
-void Game::visitNode(int x, int y){
-    _gameBoard[x][y]._visited = true;
-}
-
-void Game::dfs(){
-    
+Node Game::startingNode(int startingRowCordinate, int startingColumnCordinate){
     Node tempNode;
     
-    for (int i = 4; 0 <= i; i--) {
-        for (int j = 0; j < 5; j++) {
-            if (_gameBoard[i][j]._value == -1) {
+    tempNode._rowCordinate = startingRowCordinate;
+    tempNode._rowCordinate = startingColumnCordinate;
+    tempNode._visited = true;
+    
+    return tempNode;
+}
+
+void Game::startGame(){
+    bfs(_startingNode);
+}
+
+void Game::bfs(Node *node){
+    Node tempNode;
+    Node currentNode;
+    tempNode = *node;
+
+    for (int i = 0 ; i < 5; i++) {
+        for (int j = 0; j < 5; i++) {
+            currentNode = _gameBoard[i][j];
+            
+            if (currentNode._value == -1) {
                 continue;
             }
             
-            if (_gameBoard[i][j]._visited == 0) {
-                //
+            if (checkIfNodeIsVisited(currentNode) == false) {
+                searchForAvilableChildNodes(currentNode);
             }
-            
         }
     }
 }
 
-bool Game::hasNodeBeenVisited(Node node){
-    Node tempNode;
+void Game::searchForAvilableChildNodes(Node node){
+    Node currentNode = node;
+    Node currdentNodeLeftChild;
+    Node currentNodeRightChild;
     
-    if (tempNode._visited == 1) {
-        return true;
-    }else
-        return false;
+//    int currentNodeRowCordinate = currentNode._rowCordinate;
+//    int currentNodeColumnCordinate = currentNode._columnCordinate;
+    
+    
+    int currentNodeLeftChild = (currentNode._rowCordinate) + 1;
+    int currentNodeRightChild = (currentNode._columnCordinate) + 1;
+    
+//    if (_gameBoard[currentNodeLeftChild][node._rowCordinate]._visited == false ) {
+//        if (_gameBoard[currentNodeLeftChild+1][node._rowCordinate]._visited == false) {
+//            _gameBoard[currentNode._rowCordinate][currentNode._columnCordinate]._value = 0;
+//            _gameBoard[currentNode._rowCordinate][currentNode._columnCordinate]._visited = true;
+//        }
+//    }
+    
 }
 
-void Game::searchForMoves(Node node){
-    Node tempNode;
+bool Game::checkIfNodeIsVisited(Node node){
 
+    if (node._visited == true) {
+        return true;
+    } else
+        return false;
 }
 
 void Game::printBord(){

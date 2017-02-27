@@ -20,8 +20,8 @@ public:
     std::string _label;
     bool _visited;
     int _value;
-    int _xCordinate;
-    int _yCordinate;
+    int _rowCordinate;
+    int _columnCordinate;
 };
 
 #endif /* Node_hpp */

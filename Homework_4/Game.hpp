@@ -20,22 +20,20 @@ class Game{
 
 public:
     Game();
-    ~Game();
     void populateBoard();
+    Node startingNode(int startingRowCordinate, int startingColumnCordinate);
     void printBord();
-    void dfs();
-    void searchForMoves(Node node);
-    void visitNode(int startingX, int startingY);
-    bool hasNodeBeenVisited(Node node);
+    void bfs(Node *node);
+    void searchForAvilableChildNodes(Node node);
+    void startGame();
+    bool checkIfNodeIsVisited(Node node);
+    void movePeg(Node node);
     
 private:
     
     Node **_gameBoard;
-    std::vector<Node> _possibleMoves;
-    std::map<std::string, int, int> _pegNamesAndPositions;
-    int _moves;
-    int _pegs;
-    int _pegCount;
+    Node *_startingNode;
+    std::map<char, int, int> _boardPositions;
     
 };
 

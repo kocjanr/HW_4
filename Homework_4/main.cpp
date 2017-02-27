@@ -8,11 +8,11 @@
 
 #include <iostream>
 #include "Game.hpp"
+#include "Node.hpp"
 
 int main(int argc, const char * argv[]) {
     Game *newGame = new Game();
-    
-    newGame->dfs();
+
     
     return 0;
 }

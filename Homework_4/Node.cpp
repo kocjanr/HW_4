@@ -13,8 +13,8 @@ Node::Node(){
     _label = "1";
     _visited = false;
     _value = 1;
-    _xCordinate = 0;
-    _yCordinate = 0;
+    _rowCordinate = 0;
+    _columnCordinate = 0;
 }
 
 
